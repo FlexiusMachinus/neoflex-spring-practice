@@ -1,5 +1,7 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.entity.mapping;
 
+import com.fmachinus.practice.entity.Product;
+import com.fmachinus.practice.entity.dto.ProductDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

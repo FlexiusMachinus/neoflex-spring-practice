@@ -1,8 +1,6 @@
-package com.fmachinus.practice.order;
+package com.fmachinus.practice.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fmachinus.practice.customer.CustomerDto;
-import com.fmachinus.practice.product.ProductDto;
 
 import java.time.LocalDateTime;
 

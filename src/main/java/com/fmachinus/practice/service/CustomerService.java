@@ -1,4 +1,6 @@
-package com.fmachinus.practice.customer;
+package com.fmachinus.practice.service;
+
+import com.fmachinus.practice.entity.Customer;
 
 import java.util.List;
 

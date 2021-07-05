@@ -1,7 +1,10 @@
-package com.fmachinus.practice.order;
+package com.fmachinus.practice.service.impl;
 
-import com.fmachinus.practice.customer.CustomerService;
-import com.fmachinus.practice.product.ProductService;
+import com.fmachinus.practice.repository.OrderRepository;
+import com.fmachinus.practice.entity.Order;
+import com.fmachinus.practice.service.CustomerService;
+import com.fmachinus.practice.service.OrderService;
+import com.fmachinus.practice.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

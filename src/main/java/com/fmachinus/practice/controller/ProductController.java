@@ -1,5 +1,9 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.controller;
 
+import com.fmachinus.practice.entity.Product;
+import com.fmachinus.practice.entity.dto.ProductDto;
+import com.fmachinus.practice.entity.mapping.ProductMapper;
+import com.fmachinus.practice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

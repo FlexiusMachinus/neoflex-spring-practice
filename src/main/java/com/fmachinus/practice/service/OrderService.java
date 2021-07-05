@@ -1,4 +1,6 @@
-package com.fmachinus.practice.order;
+package com.fmachinus.practice.service;
+
+import com.fmachinus.practice.entity.Order;
 
 import java.time.LocalDateTime;
 import java.util.List;

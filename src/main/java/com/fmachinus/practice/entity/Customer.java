@@ -1,6 +1,4 @@
-package com.fmachinus.practice.customer;
-
-import com.fmachinus.practice.order.Order;
+package com.fmachinus.practice.entity;
 
 import javax.persistence.*;
 import java.util.Collections;

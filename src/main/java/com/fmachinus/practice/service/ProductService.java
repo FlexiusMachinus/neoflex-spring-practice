@@ -1,4 +1,6 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.service;
+
+import com.fmachinus.practice.entity.Product;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
-package com.fmachinus.practice.order;
+package com.fmachinus.practice.repository;
 
+import com.fmachinus.practice.entity.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;

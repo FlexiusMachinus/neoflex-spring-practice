@@ -1,5 +1,8 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.service.impl;
 
+import com.fmachinus.practice.entity.Product;
+import com.fmachinus.practice.repository.ProductRepository;
+import com.fmachinus.practice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

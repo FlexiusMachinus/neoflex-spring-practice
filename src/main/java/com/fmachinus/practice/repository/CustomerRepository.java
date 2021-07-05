@@ -1,5 +1,6 @@
-package com.fmachinus.practice.customer;
+package com.fmachinus.practice.repository;
 
+import com.fmachinus.practice.entity.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

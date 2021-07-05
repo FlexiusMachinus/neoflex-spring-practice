@@ -1,4 +1,4 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.entity.dto;
 
 public class ProductDto {
 

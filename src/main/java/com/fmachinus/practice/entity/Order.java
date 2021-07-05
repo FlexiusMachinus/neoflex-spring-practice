@@ -1,7 +1,4 @@
-package com.fmachinus.practice.order;
-
-import com.fmachinus.practice.customer.Customer;
-import com.fmachinus.practice.product.Product;
+package com.fmachinus.practice.entity;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

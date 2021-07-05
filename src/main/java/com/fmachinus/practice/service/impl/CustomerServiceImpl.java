@@ -1,6 +1,8 @@
-package com.fmachinus.practice.customer;
+package com.fmachinus.practice.service.impl;
 
-import com.fmachinus.practice.product.Product;
+import com.fmachinus.practice.repository.CustomerRepository;
+import com.fmachinus.practice.entity.Customer;
+import com.fmachinus.practice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

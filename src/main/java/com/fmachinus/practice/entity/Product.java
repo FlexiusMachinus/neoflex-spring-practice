@@ -1,4 +1,4 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
