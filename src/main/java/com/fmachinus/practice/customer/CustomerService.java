@@ -4,9 +4,8 @@ import java.util.List;
 
 public interface CustomerService {
 
-    long count();
-
     Customer add(Customer customer);
+    Customer replaceAt(Long id, Customer newCustomer);
     void deleteById(Long id);
 
     List<Customer> findAll();

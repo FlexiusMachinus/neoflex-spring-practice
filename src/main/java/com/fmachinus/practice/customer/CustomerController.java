@@ -3,6 +3,7 @@ package com.fmachinus.practice.customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -16,32 +17,28 @@ public class CustomerController {
     }
 
     @GetMapping("/customers")
-    public List<Customer> findAllCustomers() {
-        return service.findAll();
-    }
-
-    @PostMapping("/customers")
-    public Customer addCustomer(@RequestBody Customer customer) {
-        return service.add(customer);
+    public List<CustomerDto> findAllCustomers() {
+        List<CustomerDto> customerDtoList = new ArrayList<>();
+        List<Customer> customerList = service.findAll();
+        customerList.forEach(customer -> customerDtoList.add(CustomerMapper.MAPPER.fromCustomer(customer)));
+        return customerDtoList;
     }
 
     @GetMapping("/customers/{id}")
-    public Customer findCustomer(@PathVariable Long id) {
-        return service.findById(id);
+    public CustomerDto findCustomerById(@PathVariable Long id) {
+        return CustomerMapper.MAPPER.fromCustomer(service.findById(id));
+    }
+
+    @PostMapping("/customers")
+    public CustomerDto addCustomer(@RequestBody CustomerDto customerDto) {
+        Customer customer = CustomerMapper.MAPPER.toCustomer(customerDto);
+        return CustomerMapper.MAPPER.fromCustomer(service.add(customer));
     }
 
     @PutMapping("/customers/{id}")
-    public Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable Long id) {
-
-        Customer customer = service.findById(id);
-
-        if (customer != null) {
-            customer.setFirstName(newCustomer.getFirstName());
-            customer.setLastName(newCustomer.getLastName());
-            return customer;
-        }
-
-        return service.add(newCustomer);
+    public CustomerDto replaceCustomer(@RequestBody CustomerDto newCustomerDto, @PathVariable Long id) {
+        Customer newCustomer = CustomerMapper.MAPPER.toCustomer(newCustomerDto);
+        return CustomerMapper.MAPPER.fromCustomer(service.replaceAt(id, newCustomer));
     }
 
     @DeleteMapping("/customers/{id}")
