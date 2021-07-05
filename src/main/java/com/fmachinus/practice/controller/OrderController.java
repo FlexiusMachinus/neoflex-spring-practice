@@ -53,4 +53,12 @@ public class OrderController {
     public void deleteOrder(@PathVariable Long id) {
         service.delete(id);
     }
+
+    @GetMapping("customers/{customerId}/orders")
+    public List<OrderDto> findAllCustomerOrders(@PathVariable Long customerId) {
+        List<OrderDto> orderDtoList = new ArrayList<>();
+        List<Order> orderList = service.findByCustomerId(customerId);
+        orderList.forEach(order -> orderDtoList.add(OrderMapper.MAPPER.fromOrder(order)));
+        return orderDtoList;
+    }
 }
