@@ -1,10 +1,12 @@
 package com.fmachinus.practice.customer;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fmachinus.practice.order.Order;
+
+import javax.persistence.*;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "customers")
@@ -16,6 +18,9 @@ public class Customer {
 
     private String firstName;
     private String lastName;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    private Set<Order> orders = new LinkedHashSet<>();
 
     public Customer() { }
 
@@ -42,6 +47,26 @@ public class Customer {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Set<Order> getOrdersReadonly() {
+        return Collections.unmodifiableSet(orders);
+    }
+
+    public boolean addOrder(Order order) {
+        return orders.add(order);
+    }
+
+    public boolean removeOrder(Order order) {
+        return orders.remove(order);
+    }
+
+    protected Set<Order> getOrders() {
+        return orders;
+    }
+
+    protected void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
