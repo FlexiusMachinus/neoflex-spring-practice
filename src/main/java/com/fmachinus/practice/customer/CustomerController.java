@@ -35,13 +35,13 @@ public class CustomerController {
 
         Customer customer = service.findById(id);
 
-        if (customer == null) {
-            return service.add(newCustomer);
+        if (customer != null) {
+            customer.setFirstName(newCustomer.getFirstName());
+            customer.setLastName(newCustomer.getLastName());
+            return customer;
         }
 
-        customer.setFirstName(newCustomer.getFirstName());
-        customer.setLastName(newCustomer.getLastName());
-        return customer;
+        return service.add(newCustomer);
     }
 
     @DeleteMapping("/customers/{id}")

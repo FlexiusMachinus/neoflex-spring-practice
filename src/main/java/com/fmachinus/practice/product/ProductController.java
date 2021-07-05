@@ -20,14 +20,14 @@ public class ProductController {
         return service.findAll();
     }
 
+    @GetMapping("/products/{id}")
+    public Product findProductById(@PathVariable Long id) {
+        return service.findById(id);
+    }
+
     @PostMapping("/products")
     public Product addProduct(@RequestBody Product product) {
         return service.add(product);
-    }
-
-    @GetMapping("/products/{id}")
-    public Product findProduct(@PathVariable Long id) {
-        return service.findById(id);
     }
 
     @PutMapping("/products/{id}")
@@ -35,13 +35,13 @@ public class ProductController {
 
         Product product = service.findById(id);
 
-        if (product == null) {
-            return service.add(newProduct);
+        if (product != null) {
+            product.setName(newProduct.getName());
+            product.setPrice(newProduct.getPrice());
+            return product;
         }
 
-        product.setName(newProduct.getName());
-        product.setPrice(newProduct.getPrice());
-        return product;
+        return service.add(newProduct);
     }
 
     @DeleteMapping("/products/{id}")
