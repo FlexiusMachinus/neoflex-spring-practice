@@ -17,21 +17,29 @@ public class Order {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
+    @JoinColumn(name = "product_id")
     private Product product;
 
-    private LocalDateTime date;
+    private LocalDateTime purchaseDate;
 
     Order() { }
 
     public Order(Customer customer, Product product) {
-        this.setCustomer(customer);
+        this.customer = customer;
         this.product = product;
-        this.date = LocalDateTime.now();
+        this.purchaseDate = LocalDateTime.now();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Customer getCustomer() {
@@ -39,9 +47,13 @@ public class Order {
     }
 
     public void setCustomer(Customer customer) {
-        this.customer.removeOrder(this);
+
+        if (this.customer != null) {
+            this.customer.removeOrder(this);
+        }
+
         this.customer = customer;
-        customer.addOrder(this);
+        this.customer.addOrder(this);
     }
 
     public Product getProduct() {
@@ -53,11 +65,11 @@ public class Order {
     }
 
     public LocalDateTime getPurchaseDate() {
-        return date;
+        return purchaseDate;
     }
 
-    public void setPurchaseDate(LocalDateTime date) {
-        this.date = date;
+    public void setPurchaseDate(LocalDateTime purchaseDate) {
+        this.purchaseDate = purchaseDate;
     }
 
     @Override
@@ -68,18 +80,18 @@ public class Order {
 
         Order order = (Order)o;
         return (id.equals(order.id) && customer.equals(order.customer) &&
-                product.equals(order.product) && date.equals(order.date));
+                product.equals(order.product) && purchaseDate.equals(order.purchaseDate));
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, customer.getId(), product.getId(), date);
+        return Objects.hash(id, customer.getId(), product.getId(), purchaseDate);
     }
 
     @Override
     public String toString() {
         String format = "Order@%d[customerId=%d, productId=%d, date=%s]";
-        String formattedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(date);
+        String formattedDateTime = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(purchaseDate);
         return String.format(format, id, customer.getId(), product.getId(), formattedDateTime);
     }
 }

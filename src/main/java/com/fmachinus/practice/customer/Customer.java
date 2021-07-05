@@ -19,7 +19,7 @@ public class Customer {
     private String firstName;
     private String lastName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
     public Customer() { }
@@ -31,6 +31,10 @@ public class Customer {
 
     public Long getId() {
         return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {
