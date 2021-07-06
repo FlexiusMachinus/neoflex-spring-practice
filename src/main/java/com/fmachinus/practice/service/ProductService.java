@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface ProductService {
 
+    List<Long> findAllIds();
+
     Product add(Product product);
     Product replaceAt(Long id, Product newProduct);
     void deleteById(Long id);

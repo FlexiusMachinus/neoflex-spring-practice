@@ -14,6 +14,10 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository repository;
 
+    public List<Long> findAllIds() {
+        return repository.findAllIds();
+    }
+
     public Product add(Product product) {
         return repository.save(product);
     }
@@ -71,5 +75,9 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> findByPriceBetween(Integer minPrice, Integer maxPrice) {
         return repository.findByPriceBetween(minPrice, maxPrice);
+    }
+
+    public long count() {
+        return repository.count();
     }
 }

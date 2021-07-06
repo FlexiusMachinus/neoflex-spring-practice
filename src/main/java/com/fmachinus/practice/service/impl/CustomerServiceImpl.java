@@ -14,6 +14,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repository;
 
+    public List<Long> findAllIds() {
+        return repository.findAllIds();
+    }
+
     public Customer add(Customer customer) {
         return repository.save(customer);
     }

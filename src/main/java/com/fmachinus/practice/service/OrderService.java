@@ -7,8 +7,9 @@ import java.util.List;
 
 public interface OrderService {
 
-    Order placeOrder(Order order);
+    List<Long> findAllIds();
 
+    Order placeOrder(Order order);
     Order replaceAt(Long id, Order newOrder);
     void delete(Long id);
 

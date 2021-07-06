@@ -26,6 +26,10 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
 
+    public List<Long> findAllIds() {
+        return repository.findAllIds();
+    }
+
     @Transactional
     public Order placeOrder(Order order) {
 
@@ -124,5 +128,9 @@ public class OrderServiceImpl implements OrderService {
     private boolean validateOrder(Order order) {
         return (order.getCustomer() != null && customerService.existsById(order.getCustomer().getId()) &&
                 order.getProduct() != null && productService.existsById(order.getProduct().getId()));
+    }
+
+    public long count() {
+        return repository.count();
     }
 }
