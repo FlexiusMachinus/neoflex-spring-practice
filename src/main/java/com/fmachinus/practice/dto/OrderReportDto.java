@@ -12,6 +12,7 @@ public class OrderReportDto {
     private List<OrderDto> orders;
     private Map<ProductDto, Integer> productSales;
     private BigDecimal revenue;
+    private Integer totalSales;
     private ProductDto bestProductBySales;
     private ProductDto bestProductByRevenue;
 }
