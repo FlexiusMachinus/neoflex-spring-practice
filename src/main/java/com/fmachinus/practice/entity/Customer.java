@@ -65,6 +65,6 @@ public class Customer {
 
     @Override
     public String toString() {
-        return String.format("Customer@%d[firstName=%s, lastName=%s]", id, firstName, lastName);
+        return String.format("Customer@%d[firstName=%s, lastName=%s, cash=%s]", id, firstName, lastName, cash);
     }
 }
