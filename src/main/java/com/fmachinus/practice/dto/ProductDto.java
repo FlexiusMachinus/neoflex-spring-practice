@@ -1,4 +1,4 @@
-package com.fmachinus.practice.entity.dto;
+package com.fmachinus.practice.dto;
 
 import lombok.Data;
 

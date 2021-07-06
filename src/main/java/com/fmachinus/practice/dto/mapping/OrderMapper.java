@@ -1,16 +1,15 @@
-package com.fmachinus.practice.entity.mapping;
+package com.fmachinus.practice.dto.mapping;
 
 import com.fmachinus.practice.entity.Customer;
 import com.fmachinus.practice.entity.Order;
 import com.fmachinus.practice.entity.Product;
-import com.fmachinus.practice.entity.dto.OrderDto;
+import com.fmachinus.practice.dto.OrderDto;
 import com.fmachinus.practice.service.CustomerService;
 import com.fmachinus.practice.service.ProductService;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
