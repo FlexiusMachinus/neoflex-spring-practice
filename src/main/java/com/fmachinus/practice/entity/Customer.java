@@ -1,53 +1,38 @@
 package com.fmachinus.practice.entity;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "customers")
 public class Customer {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String firstName;
     private String lastName;
+    private BigDecimal cash;
 
+    @Getter(AccessLevel.PROTECTED)
+    @Setter(AccessLevel.PROTECTED)
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", orphanRemoval = true)
     private Set<Order> orders = new LinkedHashSet<>();
 
-    public Customer() { }
-
     public Customer(String firstName, String lastName) {
         this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
@@ -61,14 +46,6 @@ public class Customer {
 
     public boolean removeOrder(Order order) {
         return orders.remove(order);
-    }
-
-    protected Set<Order> getOrders() {
-        return orders;
-    }
-
-    protected void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 
     @Override
