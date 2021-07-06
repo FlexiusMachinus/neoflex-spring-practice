@@ -1,8 +1,8 @@
 package com.fmachinus.practice.controller;
 
 import com.fmachinus.practice.entity.Customer;
-import com.fmachinus.practice.entity.dto.CustomerDto;
-import com.fmachinus.practice.entity.mapping.CustomerMapper;
+import com.fmachinus.practice.dto.CustomerDto;
+import com.fmachinus.practice.dto.mapping.CustomerMapper;
 import com.fmachinus.practice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
