@@ -25,7 +25,8 @@ public class ProductServiceImpl implements ProductService {
         if (oldProduct != null) {
             oldProduct.setName(newProduct.getName());
             oldProduct.setPrice(newProduct.getPrice());
-            return oldProduct;
+            oldProduct.setQuantity(newProduct.getQuantity());
+            return repository.save(oldProduct);
         }
 
         // Иначе добавить новый товар в БД
