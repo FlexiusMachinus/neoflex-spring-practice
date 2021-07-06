@@ -1,12 +1,13 @@
-package com.fmachinus.practice.customer;
+package com.fmachinus.practice.service;
+
+import com.fmachinus.practice.entity.Customer;
 
 import java.util.List;
 
 public interface CustomerService {
 
-    long count();
-
     Customer add(Customer customer);
+    Customer replaceAt(Long id, Customer newCustomer);
     void deleteById(Long id);
 
     List<Customer> findAll();

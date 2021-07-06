@@ -1,12 +1,13 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.service;
+
+import com.fmachinus.practice.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    long count();
-
     Product add(Product product);
+    Product replaceAt(Long id, Product newProduct);
     void deleteById(Long id);
 
     List<Product> findAll();

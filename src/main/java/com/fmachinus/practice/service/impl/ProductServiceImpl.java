@@ -1,5 +1,8 @@
-package com.fmachinus.practice.product;
+package com.fmachinus.practice.service.impl;
 
+import com.fmachinus.practice.entity.Product;
+import com.fmachinus.practice.repository.ProductRepository;
+import com.fmachinus.practice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +14,22 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository repository;
 
-    public long count() {
-        return repository.count();
-    }
-
     public Product add(Product product) {
         return repository.save(product);
+    }
+
+    public Product replaceAt(Long id, Product newProduct) {
+        Product oldProduct = findById(id);
+
+        // Если товар с таким id существует, изменить его
+        if (oldProduct != null) {
+            oldProduct.setName(newProduct.getName());
+            oldProduct.setPrice(newProduct.getPrice());
+            return oldProduct;
+        }
+
+        // Иначе добавить новый товар в БД
+        return add(newProduct);
     }
 
     public void deleteById(Long id) {

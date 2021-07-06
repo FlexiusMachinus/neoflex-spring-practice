@@ -1,5 +1,8 @@
-package com.fmachinus.practice.customer;
+package com.fmachinus.practice.service.impl;
 
+import com.fmachinus.practice.repository.CustomerRepository;
+import com.fmachinus.practice.entity.Customer;
+import com.fmachinus.practice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,12 +14,22 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repository;
 
-    public long count() {
-        return repository.count();
-    }
-
     public Customer add(Customer customer) {
         return repository.save(customer);
+    }
+
+    public Customer replaceAt(Long id, Customer newCustomer) {
+        Customer oldCustomer = findById(id);
+
+        // Если покупатель с таким id существует, изменить его
+        if (oldCustomer != null) {
+            oldCustomer.setFirstName(newCustomer.getFirstName());
+            oldCustomer.setLastName(newCustomer.getLastName());
+            return oldCustomer;
+        }
+
+        // Иначе добавить новую сущность в БД
+        return add(newCustomer);
     }
 
     public void deleteById(Long id) {
