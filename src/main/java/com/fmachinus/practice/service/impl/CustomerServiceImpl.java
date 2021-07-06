@@ -14,6 +14,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository repository;
 
+    public List<Long> findAllIds() {
+        return repository.findAllIds();
+    }
+
     public Customer add(Customer customer) {
         return repository.save(customer);
     }
@@ -25,7 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
         if (oldCustomer != null) {
             oldCustomer.setFirstName(newCustomer.getFirstName());
             oldCustomer.setLastName(newCustomer.getLastName());
-            return oldCustomer;
+            oldCustomer.setCash(newCustomer.getCash());
+            return repository.save(oldCustomer);
         }
 
         // Иначе добавить новую сущность в БД

@@ -5,18 +5,18 @@ import com.fmachinus.practice.entity.Order;
 import com.fmachinus.practice.service.CustomerService;
 import com.fmachinus.practice.service.OrderService;
 import com.fmachinus.practice.service.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Slf4j
 @Service
 public class OrderServiceImpl implements OrderService {
-
-    private static final Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Autowired
     private OrderRepository repository;
@@ -26,13 +26,35 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
 
-    public Order add(Order order) {
+    public List<Long> findAllIds() {
+        return repository.findAllIds();
+    }
+
+    @Transactional
+    public Order placeOrder(Order order) {
+
         if (!validateOrder(order)) {
             log.error("Не удалось сформировать заказ: указанный покупатель или товар отсутствует в базе.");
             return null;
         }
 
+        BigDecimal cash = order.getCustomer().getCash();
+        BigDecimal price = order.getProduct().getPrice();
+        int quantity = order.getProduct().getQuantity();
+
+        if (order.getProduct().getQuantity() < 1) {
+            log.error("Не удалось сформировать заказ: товара нет на складе.");
+            return null;
+        }
+
+        if (cash.compareTo(price) < 0) {
+            log.error("Не удалось сформировать заказ: у покупателя недостаточно средств.");
+            return null;
+        }
+
         Order newOrder = repository.save(order);
+        newOrder.getProduct().setQuantity(quantity - 1);
+        newOrder.getCustomer().setCash(cash.subtract(price));
         newOrder.getCustomer().addOrder(newOrder);
 
         log.info(String.format("Заказ #%d успешно сформирован!", newOrder.getId()));
@@ -55,11 +77,11 @@ public class OrderServiceImpl implements OrderService {
                 oldOrder.setPurchaseDate(newOrder.getPurchaseDate());
             }
 
-            return oldOrder;
+            return repository.save(oldOrder);
         }
 
         // Иначе добавить новый заказ в БД
-        return add(newOrder);
+        return placeOrder(newOrder);
     }
 
     public List<Order> findAll() {
@@ -104,7 +126,11 @@ public class OrderServiceImpl implements OrderService {
 
     // Проверяет в БД наличие покупателя и товара, указанных в заказе
     private boolean validateOrder(Order order) {
-        return customerService.existsById(order.getCustomer().getId()) &&
-                productService.existsById(order.getProduct().getId());
+        return (order.getCustomer() != null && customerService.existsById(order.getCustomer().getId()) &&
+                order.getProduct() != null && productService.existsById(order.getProduct().getId()));
+    }
+
+    public long count() {
+        return repository.count();
     }
 }

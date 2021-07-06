@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface CustomerService {
 
+    List<Long> findAllIds();
+
     Customer add(Customer customer);
     Customer replaceAt(Long id, Customer newCustomer);
     void deleteById(Long id);

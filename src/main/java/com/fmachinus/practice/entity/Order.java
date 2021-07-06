@@ -1,16 +1,23 @@
 package com.fmachinus.practice.entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name = "orders")
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -23,50 +30,21 @@ public class Order {
 
     private LocalDateTime purchaseDate;
 
-    Order() { }
-
     public Order(Customer customer, Product product) {
         this.customer = customer;
         this.product = product;
         this.purchaseDate = LocalDateTime.now();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
     public void setCustomer(Customer customer) {
-
         if (this.customer != null) {
             this.customer.removeOrder(this);
         }
 
         this.customer = customer;
-        this.customer.addOrder(this);
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public LocalDateTime getPurchaseDate() {
-        return purchaseDate;
-    }
-
-    public void setPurchaseDate(LocalDateTime purchaseDate) {
-        this.purchaseDate = purchaseDate;
+        if (customer != null && this.getId() != null) {
+            this.customer.addOrder(this);
+        }
     }
 
     @Override
