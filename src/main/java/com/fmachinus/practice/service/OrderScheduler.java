@@ -3,18 +3,13 @@ package com.fmachinus.practice.service;
 import com.fmachinus.practice.entity.Customer;
 import com.fmachinus.practice.entity.Order;
 import com.fmachinus.practice.entity.Product;
-import com.fmachinus.practice.service.CustomerService;
-import com.fmachinus.practice.service.OrderService;
-import com.fmachinus.practice.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 

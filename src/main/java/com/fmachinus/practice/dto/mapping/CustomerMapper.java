@@ -1,7 +1,7 @@
 package com.fmachinus.practice.dto.mapping;
 
-import com.fmachinus.practice.entity.Customer;
 import com.fmachinus.practice.dto.CustomerDto;
+import com.fmachinus.practice.entity.Customer;
 import org.mapstruct.Mapper;
 
 import java.util.List;
