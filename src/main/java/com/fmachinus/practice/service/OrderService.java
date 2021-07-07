@@ -14,16 +14,12 @@ public interface OrderService {
     void delete(Long id);
 
     List<Order> findAll();
-    List<Order> findAllById(List<Long> id);
 
     boolean existsById(Long id);
     Order findById(Long id);
 
     List<Order> findByCustomerId(Long customerId);
     List<Order> findByProductId(Long productId);
-    List<Order> findByCustomerIdAndProductId(Long customerId, Long productId);
 
-    List<Order> findByPurchaseDateLessThan(LocalDateTime date);
-    List<Order> findByPurchaseDateGreaterThan(LocalDateTime date);
     List<Order> findByPurchaseDateBetween(LocalDateTime date1, LocalDateTime date2);
 }
