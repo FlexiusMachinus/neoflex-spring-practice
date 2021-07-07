@@ -1,7 +1,7 @@
 package com.fmachinus.practice.service.impl;
 
-import com.fmachinus.practice.repository.CustomerRepository;
 import com.fmachinus.practice.entity.Customer;
+import com.fmachinus.practice.repository.CustomerRepository;
 import com.fmachinus.practice.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
+    private final CustomerRepository repository;
+
     @Autowired
-    private CustomerRepository repository;
+    public CustomerServiceImpl(CustomerRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Long> findAllIds() {
         return repository.findAllIds();
@@ -45,28 +49,12 @@ public class CustomerServiceImpl implements CustomerService {
         return repository.findAll();
     }
 
-    public List<Customer> findAllById(List<Long> id) {
-        return repository.findAllById(id);
-    }
-
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
 
     public Customer findById(Long id) {
         return repository.findById(id).orElse(null);
-    }
-
-    public List<Customer> findByFirstName(String firstName) {
-        return repository.findByFirstName(firstName);
-    }
-
-    public List<Customer> findByLastName(String lastName) {
-        return repository.findByLastName(lastName);
-    }
-
-    public List<Customer> findByFirstNameOrLastName(String firstName, String lastName) {
-        return repository.findByFirstNameOrLastName(firstName, lastName);
     }
 
     public List<Customer> findByFirstNameAndLastName(String firstName, String lastName) {

@@ -11,8 +11,12 @@ import java.util.List;
 @Service
 public class ProductServiceImpl implements ProductService {
 
+    private final ProductRepository repository;
+
     @Autowired
-    private ProductRepository repository;
+    public ProductServiceImpl(ProductRepository repository) {
+        this.repository = repository;
+    }
 
     public List<Long> findAllIds() {
         return repository.findAllIds();
@@ -45,10 +49,6 @@ public class ProductServiceImpl implements ProductService {
         return repository.findAll();
     }
 
-    public List<Product> findAllById(List<Long> id) {
-        return repository.findAllById(id);
-    }
-
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
@@ -59,25 +59,5 @@ public class ProductServiceImpl implements ProductService {
 
     public List<Product> findByName(String name) {
         return repository.findByName(name);
-    }
-
-    public List<Product> findByPrice(Integer price) {
-        return repository.findByPrice(price);
-    }
-
-    public List<Product> findByPriceLessThan(Integer price) {
-        return repository.findByPriceLessThan(price);
-    }
-
-    public List<Product> findByPriceGreaterThan(Integer price) {
-        return repository.findByPriceGreaterThan(price);
-    }
-
-    public List<Product> findByPriceBetween(Integer minPrice, Integer maxPrice) {
-        return repository.findByPriceBetween(minPrice, maxPrice);
-    }
-
-    public long count() {
-        return repository.count();
     }
 }

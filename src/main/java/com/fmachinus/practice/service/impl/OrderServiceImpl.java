@@ -1,7 +1,7 @@
 package com.fmachinus.practice.service.impl;
 
-import com.fmachinus.practice.repository.OrderRepository;
 import com.fmachinus.practice.entity.Order;
+import com.fmachinus.practice.repository.OrderRepository;
 import com.fmachinus.practice.service.CustomerService;
 import com.fmachinus.practice.service.OrderService;
 import com.fmachinus.practice.service.ProductService;
@@ -18,13 +18,16 @@ import java.util.List;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    private OrderRepository repository;
+    private final OrderRepository repository;
+    private final CustomerService customerService;
+    private final ProductService productService;
 
     @Autowired
-    private CustomerService customerService;
-    @Autowired
-    private ProductService productService;
+    public OrderServiceImpl(OrderRepository repository, CustomerService customerService, ProductService productService) {
+        this.repository = repository;
+        this.customerService = customerService;
+        this.productService = productService;
+    }
 
     public List<Long> findAllIds() {
         return repository.findAllIds();
@@ -88,10 +91,6 @@ public class OrderServiceImpl implements OrderService {
         return repository.findAll();
     }
 
-    public List<Order> findAllById(List<Long> ids) {
-        return repository.findAllById(ids);
-    }
-
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
@@ -108,18 +107,6 @@ public class OrderServiceImpl implements OrderService {
         return repository.findByProductId(productId);
     }
 
-    public List<Order> findByCustomerIdAndProductId(Long customerId, Long productId) {
-        return repository.findByCustomerIdAndProductId(customerId, productId);
-    }
-
-    public List<Order> findByPurchaseDateLessThan(LocalDateTime date) {
-        return repository.findByPurchaseDateLessThan(date);
-    }
-
-    public List<Order> findByPurchaseDateGreaterThan(LocalDateTime date) {
-        return repository.findByPurchaseDateGreaterThan(date);
-    }
-
     public List<Order> findByPurchaseDateBetween(LocalDateTime date1, LocalDateTime date2) {
         return repository.findByPurchaseDateBetween(date1, date2);
     }
@@ -128,9 +115,5 @@ public class OrderServiceImpl implements OrderService {
     private boolean validateOrder(Order order) {
         return (order.getCustomer() != null && customerService.existsById(order.getCustomer().getId()) &&
                 order.getProduct() != null && productService.existsById(order.getProduct().getId()));
-    }
-
-    public long count() {
-        return repository.count();
     }
 }
